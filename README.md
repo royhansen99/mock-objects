@@ -1,0 +1,82 @@
+# mock-objects: A javascript/typescript library for mocking objects
+
+This library includes full typings for projects that use typescript.
+An object/entity is immutable, so making any changes will return a new object/entity.
+
+### Installation
+
+`npm install git+https://github.com/royhansen99/mock-objects`  
+`yarn add mock-objects@https://github.com/royhansen99/mock-objects`
+
+### Usage
+
+```typescript
+import { entity, Recipe } from './index'
+
+// Define the object structure.
+// This original object will be deep-copied and will remain untouched
+// despite any changes you make to the entity.
+const personShape = {
+  name: '',
+  age: 0,
+  address: { street: '', zip: 0, country: '' }
+}
+
+const person = entity(personShape)
+
+// Retrieve the plain object
+
+person.get()
+
+// Initialize a new entity based on the object we defined above,
+// and update multiple fields at the same time
+// Argument is type-safe and will give errors if invalid.
+
+const update = person.set({ name: 'John Doe', age: 20 }).get() 
+
+// You can nest multiple operations in a row before calling get()
+person.set({ name: 'John Doe' }).set({ age: 20 }).get()
+
+// Update a single field in a nested path.
+// Both path and value are type-safe and will give errors if invalid.
+
+const nestedUpdate = person.setPath('address.street', 'Teststreet 1').get()
+
+// Using a recipe
+
+const addressRecipe = (
+  street: string, zip: number, country: string
+): Recipe<typeof person> => (entity) => entity.set(
+  { address: { street, zip, country } }
+)
+
+const recipeUpdate = person.recipe(
+  addressRecipe('Teststreet 1', 1000, 'Norway')
+)
+
+// With these basic tools you can keep expanding by using recipes inside
+// recipes, this is where the real power lies
+
+const testAddressRecipe = (): Recipe<typeof person> => (entity) =>
+  entity.recipe(addressRecipe('Teststreet 1', '1000', 'Norway') 
+
+const testNameAndAgeRecipe = (): Recipe<typeof person> => (entity) =>
+  entity.set({ name: 'John Doe', age: 20 }) 
+
+const testPersonRecipe = (): Recipe<typeof person> => (entity) => 
+  entity.recipe(testAddressRecipe).recipe(testNameAndAgeRecipe)
+
+const testResult = person.recipe(testPersonRecipe) // Finally we run all the recipes
+    .get() // and retrieve the resulting object 
+
+// You can also nest set() and recipe() operations 
+
+person.set({ name: 'John Doe' }).set({ age: 20 })
+  .recipe(testAddressRecipe).get()
+
+// That's it!
+// You now have the power to create bigger entities with associated recipes.
+//
+// You can even create sub-entities with their own sub-recipes, and then you
+// call get() on the sub-entity and set() it back into the parent entity.
+```
