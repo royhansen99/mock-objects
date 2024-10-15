@@ -10,7 +10,7 @@ An object/entity is immutable, so making any changes will return a new object/en
 ### Usage
 
 ```typescript
-import { entity, Recipe } from './index'
+import { entity, Recipe } from 'mock-objects'
 
 // Define the object structure.
 // This original object will be deep-copied and will remain untouched
@@ -57,7 +57,7 @@ const recipeUpdate = person.recipe(
 // recipes, this is where the real power lies
 
 const testAddressRecipe = (): Recipe<typeof person> => (entity) =>
-  entity.recipe(addressRecipe('Teststreet 1', '1000', 'Norway') 
+  entity.recipe(addressRecipe('Teststreet 1', '1000', 'Norway')) 
 
 const testNameAndAgeRecipe = (): Recipe<typeof person> => (entity) =>
   entity.set({ name: 'John Doe', age: 20 }) 
