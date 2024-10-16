@@ -12,7 +12,7 @@ class EntityClass<T extends Entity> {
     this.entity = deepClone(entity)
   }
 
-  set(changes: Partial<typeof this.entity>) {
+  set(changes: Partial<T>) {
     const clone = deepClone(this.entity)
 
     for (const key of Object.keys(changes) as (keyof typeof changes)[])
@@ -37,7 +37,7 @@ class EntityClass<T extends Entity> {
 }
 
 export function entity<T extends Entity>(entity: T) {
-  return new EntityClass(entity)
+  return new EntityClass<T>(entity)
 }
 
 function deepClone<T>(source: T): T {
