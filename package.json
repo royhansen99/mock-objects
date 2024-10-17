@@ -1,6 +1,6 @@
 {
   "name": "mock-objects",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A javascript/typescript library for mocking objects",
   "type": "module",
   "keywords": ["mock", "mock objects", "testing", "mock testing", "mock recipes"],
