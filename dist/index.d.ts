@@ -12,7 +12,7 @@ declare class EntityClass<T extends Entity> {
     constructor(entity: T);
     set(changes: Partial<T>): EntityClass<T>;
     setPath<P extends Path<T, ''>>(path: P, value: PathValue<T, P>): EntityClass<T>;
-    recipe(recipeCallback: Recipe<typeof EntityClass>): this;
+    recipe<R extends Partial<T>>(recipeCallback: Recipe<EntityClass<R>>): EntityClass<T>;
     get(): T;
 }
 

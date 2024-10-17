@@ -27,8 +27,8 @@ class EntityClass<T extends Entity> {
     return new EntityClass(pathSetImmutable(this.entity, path, value))
   }
 
-  recipe(recipeCallback: Recipe<typeof this>) {
-    return recipeCallback(this)
+  recipe<R extends Partial<T>>(recipeCallback: Recipe<EntityClass<R>>) {
+    return recipeCallback(this) as unknown as EntityClass<T>
   }
 
   get() {
