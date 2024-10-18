@@ -58,21 +58,36 @@ const recipeUpdate = person.recipe(
 // recipes, this is where the real power lies
 
 const testAddressRecipe = (): Recipe<typeof person> => (entity) =>
-  entity.recipe(addressRecipe('Teststreet 1', '1000', 'Norway')) 
+  entity.recipe(addressRecipe('Teststreet 1', 1000, 'Norway')) 
 
 const testNameAndAgeRecipe = (): Recipe<typeof person> => (entity) =>
   entity.set({ name: 'John Doe', age: 20 }) 
 
 const testPersonRecipe = (): Recipe<typeof person> => (entity) => 
-  entity.recipe(testAddressRecipe).recipe(testNameAndAgeRecipe)
+  entity.recipe(testAddressRecipe()).recipe(testNameAndAgeRecipe())
 
-const testResult = person.recipe(testPersonRecipe) // Finally we run all the recipes
+const testResult = person.recipe(testPersonRecipe()) // Finally we run all the recipes
     .get() // and retrieve the resulting object 
 
 // You can also nest set() and recipe() operations 
 
 person.set({ name: 'John Doe' }).set({ age: 20 })
-  .recipe(testAddressRecipe).get()
+  .recipe(testAddressRecipe()).get()
+
+// Using recipes from a "parent-entity" onto a "child-entity" that inherited/extended the base-entity. 
+// (It is unfortunately not 100% seamless, because it was too messy to generically type
+// function-recipes, therefore we must assert the child-entity into the parent-entity before the recipe,
+// and then back again to the child-entity before we return the result)
+
+const employee = entity({
+  ...personShape,
+  jobTitle: '',
+  salary: 0
+}) 
+
+const updateAddress = (
+  (employee as typeof person).recipe(testAddressRecipe())
+) as typeof employee
 
 // That's it!
 // You now have the power to create bigger entities with associated recipes.
