@@ -1,4 +1,6 @@
 import { Path, PathValue, pathSetImmutable } from 'object-standard-path'
+import { deepClone } from './utils'
+export { randomNumber, randomHash, randomUuid, hash } from './utils'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Entity = { [key: string]: any }
@@ -38,16 +40,4 @@ class EntityClass<T extends Entity = object> {
 
 export function entity<T extends Entity>(entity: T) {
   return new EntityClass<T>(entity)
-}
-
-function deepClone<T>(source: T): T {
-  if (source === null || typeof source !== 'object') return source
-
-  const clone: unknown = Array.isArray(source) ? [] : {}
-
-  for (const key in source)
-    if (Object.prototype.hasOwnProperty.call(source, key))
-      (clone as T)[key] = deepClone(source[key])
-
-  return clone as T
 }

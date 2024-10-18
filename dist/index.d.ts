@@ -16,6 +16,14 @@ declare class EntityClass<T extends Entity = object> {
     get(): T;
 }
 
+export declare function hash(str: string): string;
+
+export declare const randomHash: () => string;
+
+export declare const randomNumber: (max?: number) => number;
+
+export declare const randomUuid: () => string;
+
 export declare type Recipe<T extends EntityClass> = (entity: T) => T;
 
 export { }
