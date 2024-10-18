@@ -95,3 +95,25 @@ const updateAddress = (
 // You can even create sub-entities with their own sub-recipes, and then you
 // call get() on the sub-entity and set() it back into the parent entity.
 ```
+
+### Utils
+
+There are also some random util-functions included that you may use to generate random values.
+
+```typescript
+import { randomNumber, randomHash, randomUuid, hash } from 'mock-objects'
+
+// Generate a random number between 1-9999
+// If you want a bigger/smaller range you can input your desired max-value as an argument. 
+randomNumber()
+
+// Generate a random hash with a length of 35 chars, using an insecure 32-bit algorithm.
+randomHash()
+
+// Generate a random Uuid v4. 
+randomUuid()
+
+// Generate a hash from your string, using an insecure 32-bit algorithm. 
+// Hash length will always be 7 chars.
+hash('some string to hash')
+```
