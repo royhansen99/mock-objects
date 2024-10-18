@@ -3,9 +3,9 @@ import { Path, PathValue, pathSetImmutable } from 'object-standard-path'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Entity = { [key: string]: any }
 
-export type Recipe<T extends EntityClass<Entity>> = (entity: T) => T
+export type Recipe<T extends EntityClass> = (entity: T) => T
 
-class EntityClass<T extends Entity> {
+class EntityClass<T extends Entity = object> {
   private entity: T
 
   constructor(entity: T) {
@@ -27,8 +27,8 @@ class EntityClass<T extends Entity> {
     return new EntityClass(pathSetImmutable(this.entity, path, value))
   }
 
-  recipe<R extends Partial<T>>(recipeCallback: Recipe<EntityClass<R>>) {
-    return recipeCallback(this) as unknown as EntityClass<T>
+  recipe(recipeCallback: Recipe<EntityClass<T>>) {
+    return recipeCallback(this)
   }
 
   get() {

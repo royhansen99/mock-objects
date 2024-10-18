@@ -7,15 +7,15 @@ declare type Entity = {
 
 export declare function entity<T extends Entity>(entity: T): EntityClass<T>;
 
-declare class EntityClass<T extends Entity> {
+declare class EntityClass<T extends Entity = object> {
     private entity;
     constructor(entity: T);
     set(changes: Partial<T>): EntityClass<T>;
     setPath<P extends Path<T, ''>>(path: P, value: PathValue<T, P>): EntityClass<T>;
-    recipe<R extends Partial<T>>(recipeCallback: Recipe<EntityClass<R>>): EntityClass<T>;
+    recipe(recipeCallback: Recipe<EntityClass<T>>): EntityClass<T>;
     get(): T;
 }
 
-export declare type Recipe<T extends EntityClass<Entity>> = (entity: T) => T;
+export declare type Recipe<T extends EntityClass> = (entity: T) => T;
 
 export { }
