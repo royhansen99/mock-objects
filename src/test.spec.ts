@@ -106,4 +106,33 @@ describe('Entity tests', () => {
     // values.
     expect(update.get().address).toEqual(expect.objectContaining(newAddress))
   })
+
+  it('recipe(): Use a nested recipe', () => {
+    const person = entity({
+      name: '',
+      age: 0,
+      address: {
+        street: '',
+        zip: 0,
+        country: '',
+      },
+    })
+
+    const setAddressRecipe =
+      (street: string, zip: number, country: string): Recipe<typeof person> =>
+      (entity) =>
+        entity.set({ address: { street, zip, country } })
+
+    const newAddress = { street: 'Test street 1', zip: 1000, country: 'Norway' }
+
+    const nestedRecipe = (): Recipe<typeof person> => (entity) =>
+      entity.recipe(
+        setAddressRecipe(newAddress.street, newAddress.zip, newAddress.country)
+      )
+
+    // `update` should contain the new object with the updated values.
+    expect(person.recipe(nestedRecipe()).get().address).toEqual(
+      expect.objectContaining(newAddress)
+    )
+  })
 })
