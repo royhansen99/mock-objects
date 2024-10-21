@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { entity, Recipe } from './index'
+import { entity, Recipe, Shape } from './index'
 
 describe('Entity tests', () => {
   it('constructor(): Check for immutability', () => {
@@ -86,7 +86,11 @@ describe('Entity tests', () => {
     })
 
     const setAddress =
-      (street: string, zip: number, country: string): Recipe<typeof person> =>
+      (
+        street: string,
+        zip: number,
+        country: string
+      ): Recipe<Shape<typeof person>> =>
       (entity) =>
         entity.set({ address: { street, zip, country } })
 
@@ -119,13 +123,17 @@ describe('Entity tests', () => {
     })
 
     const setAddressRecipe =
-      (street: string, zip: number, country: string): Recipe<typeof person> =>
+      (
+        street: string,
+        zip: number,
+        country: string
+      ): Recipe<Shape<typeof person>> =>
       (entity) =>
         entity.set({ address: { street, zip, country } })
 
     const newAddress = { street: 'Test street 1', zip: 1000, country: 'Norway' }
 
-    const nestedRecipe = (): Recipe<typeof person> => (entity) =>
+    const nestedRecipe = (): Recipe<Shape<typeof person>> => (entity) =>
       entity.recipe(
         setAddressRecipe(newAddress.street, newAddress.zip, newAddress.country)
       )
@@ -134,5 +142,49 @@ describe('Entity tests', () => {
     expect(person.recipe(nestedRecipe()).get().address).toEqual(
       expect.objectContaining(newAddress)
     )
+  })
+
+  it('recipe(): Use a generic recipe from a different entity', () => {
+    const person = entity({
+      name: '',
+      age: 0,
+      address: {
+        street: '',
+        zip: 0,
+        country: '',
+      },
+    })
+
+    const setAddressRecipe =
+      <T extends Shape<typeof person>>(
+        street: string,
+        zip: number,
+        country: string
+      ): Recipe<T> =>
+      (entity) =>
+        (entity as typeof person).set({
+          address: { street, zip, country },
+        }) as typeof entity
+
+    const personExtended = entity({
+      ...person.get(),
+      employer: '',
+      position: '',
+    })
+
+    const newAddress = { street: 'Test street 1', zip: 1000, country: 'Norway' }
+
+    // Check that the recipe is properly applied to the extended entity
+    expect(
+      personExtended
+        .recipe(
+          setAddressRecipe(
+            newAddress.street,
+            newAddress.zip,
+            newAddress.country
+          )
+        )
+        .get().address
+    ).toEqual(expect.objectContaining(newAddress))
   })
 })

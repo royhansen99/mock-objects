@@ -46,6 +46,7 @@ function u(n) {
   return new x(n);
 }
 export {
+  x as EntityClass,
   u as entity,
   i as hash,
   s as randomHash,
