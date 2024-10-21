@@ -7,12 +7,12 @@ declare type Entity = {
 
 export declare function entity<T extends Entity>(entity: T): EntityClass<T>;
 
-declare class EntityClass<T extends Entity = object> {
+export declare class EntityClass<T extends Entity> {
     private entity;
     constructor(entity: T);
     set(changes: Partial<T>): EntityClass<T>;
     setPath<P extends Path<T, ''>>(path: P, value: PathValue<T, P>): EntityClass<T>;
-    recipe(recipeCallback: Recipe<EntityClass<T>>): EntityClass<T>;
+    recipe(recipeCallback: Recipe<T>): EntityClass<T>;
     get(): T;
 }
 
@@ -24,6 +24,8 @@ export declare const randomNumber: (max?: number) => number;
 
 export declare const randomUuid: () => string;
 
-export declare type Recipe<T extends EntityClass> = (entity: T) => T;
+export declare type Recipe<T extends Entity> = (entity: EntityClass<T>) => EntityClass<T>;
+
+export declare type Shape<T extends EntityClass<Entity>> = ReturnType<T['get']>;
 
 export { }
