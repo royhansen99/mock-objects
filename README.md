@@ -5,8 +5,9 @@ An object/entity is immutable, so making any changes will return a new object/en
 
 ### Installation
 
-`npm install git+https://github.com/royhansen99/mock-objects`  
-`yarn add mock-objects@https://github.com/royhansen99/mock-objects`
+`npm i mock-objects`  
+`yarn add mock-objects`  
+`bun add mock-objects`
 
 ### Usage
 
