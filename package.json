@@ -1,9 +1,15 @@
 {
   "name": "mock-objects",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A javascript/typescript library for mocking objects",
+  "license": "MIT",
+  "repository": "github:royhansen99/mock-objects",
+  "bugs": "https://github.com/royhansen99/mock-objects/issues",
   "type": "module",
   "keywords": ["mock", "mock objects", "testing", "mock testing", "mock recipes"],
+  "authors": [
+    "Roy Hansen <roy@royhansen.no> (https://github.com/royhansen99)"
+  ],
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
