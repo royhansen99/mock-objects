@@ -1,6 +1,7 @@
 {
+  "type": "module",
   "name": "mock-objects",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A javascript/typescript library for mocking objects",
   "license": "MIT",
   "repository": "github:royhansen99/mock-objects",
@@ -13,6 +14,11 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    "types": "dist/index.d.ts",
+    "import": "dist/index.es.js",
+    "require": "dist/index.cjs.js"
+  },
   "files": [
     "dist"
   ],
