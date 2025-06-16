@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "mock-objects",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A javascript/typescript library for mocking objects",
   "license": "MIT",
   "repository": "github:royhansen99/mock-objects",
@@ -15,13 +15,17 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "exports": {
-    "types": "dist/index.d.ts",
-    "import": "dist/index.es.js",
-    "require": "dist/index.cjs.js"
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.es.js"
+      },
+      "require": {
+        "default": "./dist/index.cjs.js"
+      }
+    }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "build": "vite build",
     "lint": "eslint './src/**/*.{js,ts,tsx}'",
