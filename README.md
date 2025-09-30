@@ -26,6 +26,10 @@ const person = entity({
 
 person.get()
 
+// Or retrieve a deep-clone of the plain object
+
+person.getClone()
+
 // Initialize a new entity based on the object we defined above,
 // and update multiple fields at the same time
 // Argument is type-safe and will give errors if invalid.

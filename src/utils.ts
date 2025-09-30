@@ -34,15 +34,3 @@ export const randomUuid = () =>
       return value.toString(16);
     }
   );
-
-export function deepClone<T>(source: T): T {
-  if (source === null || typeof source !== 'object') return source;
-
-  const clone: unknown = Array.isArray(source) ? [] : {};
-
-  for (const key in source)
-    if (Object.prototype.hasOwnProperty.call(source, key))
-      (clone as T)[key] = deepClone(source[key]);
-
-  return clone as T;
-}

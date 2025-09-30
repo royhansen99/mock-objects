@@ -14,7 +14,7 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
-      external: ["object-standard-path"],
+      external: ["deep-recipes"],
     },
   },
 });
