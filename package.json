@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "mock-objects",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A javascript/typescript library for mocking objects",
   "license": "MIT",
   "repository": "github:royhansen99/mock-objects",
@@ -31,6 +31,9 @@
       }
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "vite build",
     "lint": "eslint \"./src/**/*.{js,ts,tsx}\"",
@@ -40,7 +43,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "deep-recipes": "^0.0.1"
+    "object-recipes": "^0.0.1"
   },
   "devDependencies": {
     "eslint": "^9.12.0",

@@ -1,4 +1,4 @@
-import { EntityClass as s, entity as i } from "deep-recipes";
+import { EntityClass as s, entity as i } from "object-recipes";
 const a = (x = 9999) => Math.floor(Math.random() * x);
 function o(x) {
   let t = 0;
@@ -23,4 +23,3 @@ export {
   a as randomNumber,
   h as randomUuid
 };
-//# sourceMappingURL=index.es.js.map

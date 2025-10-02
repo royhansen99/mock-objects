@@ -1,7 +1,7 @@
-import { entity } from 'deep-recipes';
-import { EntityClass } from 'deep-recipes';
-import { Recipe } from 'deep-recipes';
-import { Shape } from 'deep-recipes';
+import { entity } from 'object-recipes';
+import { EntityClass } from 'object-recipes';
+import { Recipe } from 'object-recipes';
+import { Shape } from 'object-recipes';
 
 export { entity }
 
